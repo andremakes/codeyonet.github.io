@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
           if (word.length > 0) {
             document.getElementById('word').innerHTML += word.shift();
           } else {
-            setTimeout(deletingEffect, 2000); // Wait before starting to delete
+            setTimeout(deletingEffect, isFirstRun ? 2000 : 1000); // Shorter wait for subsequent runs
             return false;
           };
-          timer = setTimeout(loopTyping, 500);
+          timer = setTimeout(loopTyping, isFirstRun ? 500 : 100); // Faster typing speed after the first run
         };
         loopTyping();
       };
@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
               setTimeout(typingEffect, 3000); // Wait longer before typing a new word for the first run
               isFirstRun = false; // Reset the flag after the first run
             } else {
-              setTimeout(typingEffect, 2000); // Normal delay for subsequent runs
+              setTimeout(typingEffect, 1500); // Shorter delay for subsequent runs
             }
             return false;
           };
-          timer = setTimeout(loopDeleting, 200);
+          timer = setTimeout(loopDeleting, isFirstRun ? 200 : 100); // Faster deleting speed after the first run
         };
         loopDeleting();
       };

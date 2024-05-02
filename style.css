@@ -1,0 +1,35 @@
+html, body {
+	background-color: #000;
+	height: 100%; /* Ensure full height */
+	margin: 0; /* Remove default margin */
+	display: flex;
+	justify-content: center; /* Center horizontally */
+	align-items: center; /* Center vertically */
+	font-family: Roboto; /* Ensures consistency in font */
+}
+h2, a, p {
+	color: #fff;
+	font-family: Roboto;
+	text-decoration: none;
+}
+p>a {
+	color: #fd084a;
+}
+.blink {
+  animation: blink 0.5s infinite;
+}
+@keyframes blink{
+  to { opacity: .0; }
+}
+.display-flex {
+	display: flex;
+	justify-content: center; /* Center horizontally */
+	align-items: center; /* Center vertically */
+	width: 100%; /* Take full width to manage centering */
+}
+.header-sub-title {
+  color: #fff;
+  font-family: "Courier";
+  font-size: 20px;
+  padding: 0.1em;
+}

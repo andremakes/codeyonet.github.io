@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Typing Effect</title>
+<link rel="stylesheet" href="style.css"> <!-- Ensure this path is correct -->
+</head>
+<body>
+<div class="display-flex">
+  <p class="header-sub-title">CODE YO<span id="word">UR NETWORK</span></p><p class="header-sub-title blink">|</p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  fetch('words.txt')
+    .then(response => response.text())
+    .then(text => {
+      const words = text.split('\n').filter(word => word.trim() !== ''); // Split by new line and filter out empty lines
+      let i = 0;
+      let timer;
+      let isFirstRun = true; // Flag to check if it's the first run
+
+      function getRandomIndex() {
+        return Math.floor(Math.random() * words.length); // Get a random index
+      }
+
+      function typingEffect() {
+        if (words.length === 0) return; // Exit if no words are available
+        i = getRandomIndex(); // Set i to a random index each time
+        let word = words[i].split("");
+        var loopTyping = function() {
+          if (word.length > 0) {
+            document.getElementById('word').innerHTML += word.shift();
+          } else {
+            setTimeout(deletingEffect, 2000); // Wait before starting to delete
+            return false;
+          };
+          timer = setTimeout(loopTyping, 500);
+        };
+        loopTyping();
+      };
+
+      function deletingEffect() {
+        let word = document.getElementById('word').innerHTML.split("");
+        var loopDeleting = function() {
+          if (word.length > 0) {
+            word.pop();
+            document.getElementById('word').innerHTML = word.join("");
+          } else {
+            if (isFirstRun) {
+              setTimeout(typingEffect, 3000); // Wait longer before typing a new word for the first run
+              isFirstRun = false; // Reset the flag after the first run
+            } else {
+              setTimeout(typingEffect, 2000); // Normal delay for subsequent runs
+            }
+            return false;
+          };
+          timer = setTimeout(loopDeleting, 200);
+        };
+        loopDeleting();
+      };
+
+      // Start by deleting "UR NETWORK" after an initial longer delay
+      setTimeout(deletingEffect, 3000); // Initial delay before starting to delete "UR NETWORK"
+    })
+    .catch(error => console.error('Error loading the words:', error));
+});
+</script>
+</body>
+</html>
